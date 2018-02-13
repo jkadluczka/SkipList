@@ -1,9 +1,8 @@
-class Node {
-    constructor() {
-        this._value = null;
+export class Node {
+    constructor(val) {
+        this._value = val;
         this._next = null;
     }
-
 
     get next() {
         return this._next;

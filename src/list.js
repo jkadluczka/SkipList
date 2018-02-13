@@ -41,7 +41,7 @@ export class List {
             this.root = value
         }
         else {
-            while (node.next.value < value.value) {
+            while (node.next !== null && node.next.value < value.value) {
                 node = node.next;
             }
 
@@ -87,7 +87,7 @@ export class List {
 
         while (node !== null) {
             array.push(node.value);
-            node= node.next;
+            node = node.next;
         }
         return array;
     }
