@@ -7,7 +7,7 @@ let list = new List(rootNode);
 
 list.add(54);
 list.add(2);
-list.add(40);
+list.add(90);
 list.add(4);
 list.add(1);
 
