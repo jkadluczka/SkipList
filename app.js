@@ -24,6 +24,6 @@ list.add(1);
 
 console.log(list.toString());
 
-list.delete(4);
+list.remove(4);
 
 console.log(list.toString());

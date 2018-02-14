@@ -60,7 +60,7 @@ export class List {
      * Function deleting particular node
      * @param value
      */
-    delete(value) {
+    remove(value) {
 
         if (!(value instanceof Node)) { //Checking if "value" is instance of Node
             value = this.find(value);   //If not, creating new Node named "value" with .value equals to function argumen
