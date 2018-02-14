@@ -1,8 +1,13 @@
-import {Node} from './list/node';
+import {Node} from './node';
 
 export class List {
-    constructor(node) {                 //Constructor is using one node and sets it as root of list
+    constructor(node, funct) {
+        if (!(node instanceof Node)) { //Checking if "value" is instance of Node
+            node = new Node(node);    //If not, creating new Node named "value" with .value equals to function argument
+        }                               //Constructor is using one node and sets it as root of list
         this.root = node;
+        this.comparator = funct;
+
     }
 
     /**
@@ -34,13 +39,16 @@ export class List {
         let node = new Node(0);         //Creating new Node for operations on list
         node = this.root;
 
-        if (value.value < node.value) { //Checking if inserted node would not become new root
+        if (this.comparator(value,node) === -1) { //Checking if inserted node would not become new root
             value.next = node;          //if so, "value" node becomes root
             this.root = value
         }
         else {
-            while (node.next !== null && node.next.value < value.value) {  //Navigating to the node which woulde be just right before insertion.
-                node = node.next;                                          // in the same time checking if we didnt get to the end of the list
+            // while (node.next !== null && node.next.value < value.value) {  //Navigating to the node which woulde be just right before insertion.
+            //     node = node.next;                                          // in the same time checking if we didnt get to the end of the list
+            while(node.next !== null && this.comparator(node.next,value) === -1)
+            {
+                node = node.next;
             }
 
             value.next = node.next;      //Changing node pointers so insertion would be complete
