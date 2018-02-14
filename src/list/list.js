@@ -2,12 +2,11 @@ import {Node} from './node';
 
 export class List {
     constructor(node, funct) {
-        if (!(node instanceof Node)) { //Checking if "value" is instance of Node
-            node = new Node(node);    //If not, creating new Node named "value" with .value equals to function argument
-        }                               //Constructor is using one node and sets it as root of list
-        this.root = node;
+        if (!(node instanceof Node)) {  //Checking if "value" is instance of Node
+            node = new Node(node);      //If not, creating new Node named "value" with .value equals to function argument
+        }
+        this.root = node;               //Constructor is using one node and sets it as root of list
         this.comparator = funct;
-
     }
 
     /**
@@ -16,14 +15,12 @@ export class List {
      * @returns {Node}
      */
     find(value) {
-        if (!(value instanceof Node)) { //Checking if "value" is instance of Node
-            value = new Node(value);    //If not, creating new Node named "value" with .value equals to function argument
+        if (!(value instanceof Node)) {         //Checking if "value" is instance of Node
+            value = new Node(value);            //If not, creating new Node named "value" with .value equals to function argument
         }
-        let node = new Node(0);         //Creating new Node for operations on list
-        node = this.root;
-
-        while (value.value !== node.value) {    //looking fot matching values
-            node = node.next;                   //if values are not matching its moving on to next node
+        let node = this.root;                   //Creating new Node for operations on list
+        while (value.value !== node.value) {    //Looking fot matching values
+            node = node.next;                   //If values are not matching its moving on to next node
         }
         return node;
     }
@@ -33,25 +30,20 @@ export class List {
      * @param value
      */
     add(value) {
-        if (!(value instanceof Node)) { //Checking if "value" is instance of Node
-            value = new Node(value);    //If not, creating new Node named "value" with .value equals to function argument
-        }
-        let node = new Node(0);         //Creating new Node for operations on list
-        node = this.root;
+        let node = this.root;               //Creating new Node for operations on list
 
-        if (this.comparator(value,node) === -1) { //Checking if inserted node would not become new root
-            value.next = node;          //if so, "value" node becomes root
+        if (!(value instanceof Node)) {     //Checking if "value" is instance of Node
+            value = new Node(value);        //If not, creating new Node named "value" with .value equals to function argument
+        }
+        if (this.comparator(value, node) === -1) { //Checking if inserted node would not become new root
+            value.next = node;                     //If so, "value" node becomes root
             this.root = value
         }
         else {
-            // while (node.next !== null && node.next.value < value.value) {  //Navigating to the node which woulde be just right before insertion.
-            //     node = node.next;                                          // in the same time checking if we didnt get to the end of the list
-            while(node.next !== null && this.comparator(node.next,value) === -1)
-            {
-                node = node.next;
+            while (node.next !== null && this.comparator(node.next, value) === -1) { //Navigating to the node which woulde be just right before insertion.
+                node = node.next;                                                    //In the same time checking if we didnt get to the end of the list
             }
-
-            value.next = node.next;      //Changing node pointers so insertion would be complete
+            value.next = node.next;          //Changing node pointers so insertion would be complete
             node.next = value;
         }
     }
@@ -61,13 +53,11 @@ export class List {
      * @param value
      */
     remove(value) {
+        let node = this.root;           //Creating new Node for operations on list
 
         if (!(value instanceof Node)) { //Checking if "value" is instance of Node
             value = this.find(value);   //If not, creating new Node named "value" with .value equals to function argumen
         }
-        let node = new Node(0);         //Creating new Node for operations on list
-        node = this.root;
-
         if (value === this.root) {      //Checking if node that we want to delete isn't root
             this.root = this.root.next; //If so, reassigning root
         }
