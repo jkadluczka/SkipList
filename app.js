@@ -16,9 +16,3 @@ console.log(list.toString());
 list.delete(4);
 
 console.log(list.toString());
-// let node = list.root;
-// while(node.next !==null)
-// {
-// console.log(node.value);
-// node = node.next;
-// }

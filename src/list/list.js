@@ -76,10 +76,10 @@ export class List {
      * @returns {Array}
      */
     toArray() {
-        let node = this.root;           //
-        let array = [];
+        let node = this.root;           //Creating new Node for operations on list
+        let array = [];                 //Creating array to return
 
-        while (node !== null) {
+        while (node !== null) {         //While there ase nodes left in list values of nodes are added to array
             array.push(node.value);
             node = node.next;
         }
@@ -91,6 +91,6 @@ export class List {
      * @returns {string}
      */
     toString() {
-        return this.toArray().join(', ');
+        return this.toArray().join(', ');    //Converting array of values to string using join() method
     }
 }
