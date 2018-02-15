@@ -38,10 +38,14 @@ export class List {
       value = new Node(value);            //If not, creating new Node named "value" with .value equals to function argument
     }
 
-    while (value.value !== node.value) {    //Looking fot matching values
-      node = node.next;                   //If values are not matching its moving on to next node
+    if (node == null) {
+      return this;
     }
 
+      while ( node.next !== null && this.comparator( value.value, node.value) !== 0) {    //Looking fot matching values
+        node = node.next;                   //If values are not matching its moving on to next node
+
+  }
     return node;
   }
 
@@ -59,12 +63,11 @@ export class List {
     if (this.root === null) {
       this.root = value;
     } else {
-      if (this.comparator(value, node) === -1) { //Checking if inserted node would not become new root
+      if (this.comparator(value.value, node.value) === -1) { //Checking if inserted node would not become new root
         value.next = node;                     //If so, "value" node becomes root
         this.root = value;
       } else {
-        while (node.next !== null &&
-        this.comparator(node.next.value, value.value) === -1) { //Navigating to the node which woulde be just right before insertion.
+        while (node.next !== null && this.comparator(node.next.value, value.value) === -1) { //Navigating to the node which woulde be just right before insertion.
           node = node.next;                                                    //In the same time checking if we didnt get to the end of the list
         }
 
@@ -73,6 +76,7 @@ export class List {
       }
     }
 
+    return this;
   }
 
   /**
@@ -89,12 +93,14 @@ export class List {
     if (value === this.root) {      //Checking if node that we want to delete isn't root
       this.root = this.root.next; //If so, reassigning root
     } else {
-      while (this.comparator(node.next.value, value.value) === -1) {     //Navigating to node right before one to delete
+      while (this.comparator(node.next.value, value.value) !== 0) {     //Navigating to node right before one to delete
         node = node.next;
       }
 
       node.next = value.next;                     //Changing node pointer so node deleting is complete
     }
+
+    return this;
   }
 
   /**
