@@ -1,16 +1,12 @@
-import { List, Node } from './src/list';
+import { List }     from './src/list';
+import { SkipNode, SkipList } from './src/skip-list';
+//
+// let list = new List();
+let node = new SkipNode(4);
+let skipList = new SkipList(node);
 
-let rootNode = new Node(89);
-let list = new List();
-
-list.add(1);
-list.add(2);
-list.add(3);
-list.add(4);
-list.add(5);
-
-console.log(list.toString());
-
-list.remove(4);
-
-console.log(list.toString());
+// skipList.head
+//
+// list.add(1).add(2).add(5).remove(1).add(13).toArray();
+//
+// console.log(list.toString());
