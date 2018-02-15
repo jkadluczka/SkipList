@@ -2,8 +2,8 @@ import { SkipNode } from './skip-node';
 
 export class SkipList {
   constructor () {
-    this.head = new SkipNode();               //Generating head of SkipList
-    this.head.stack.length = this.head.maxHeight;
+    this.head = new SkipNode(null);               //Generating head of SkipList
+    this.head.stack.length = 10;
   }
 
   find (node) {
@@ -32,22 +32,19 @@ export class SkipList {
   }
 
   add (node) {
-    let index = this.head.maxHeight;
+    let index = this.head.height;
+    let iterator;
 
     if (!(node instanceof SkipNode)) {
       node = new SkipNode(node);
     }
 
-    if (this.head.stack[0] === null) {   //Case when list is empty
-      for (let i = 0; i < node.height; i++) {
-        this.head.stack[i] = node.stack[i];
-      }
-    } else {                                //Looking for node b4 insertion
+                                   //Looking for node b4 insertion
       while (this.head.stack[index] === null) {
         index--;
       }
 
-      iterator = this.head.stack[index];
+      iterator = this.head;
 
       while (iterator.stack[index] !== null && iterator.stack[index] < node &&
       index > 0) {
@@ -61,11 +58,11 @@ export class SkipList {
         node.stack[j] = iterator.stack[j];
       }
       for (let k = 0; k < node.height; k++) {
-        iterator.stack[j] = node;
+        iterator.stack[k] = node;
       }
     }
 
-  }
+
 
   remove (node) {
     if (!(node instanceof SkipNode)) {

@@ -1,16 +1,16 @@
+const DEFAULT_HEIGHT = 10;
+
 export class SkipNode {
-  constructor (value, height) {
+  constructor (value, height = DEFAULT_HEIGHT) {
     this.value = value;         //value of node
-    this.maxHeight = height;
-    this.height = SkipNode.generateHeight(height); //random height of node
-    this.stack = [];              //stack of pointers, includes value of next nodes ( i guess, we will see about that)
-  }
+    this.stack = {};
 
-  static generateHeight (value) {       //just another RNG
-    if (value === undefined) {
-      value = 10;
+    for (let h = 0; h < height; h++) {
+      this.stack[h + 1] = null;
     }
-    return Math.floor(Math.random() * (value - 1) + 1);
   }
 
+  get height () {
+    return Object.keys(this.stack).length;
+  }
 }
