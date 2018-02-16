@@ -6,7 +6,7 @@ export class SkipNode {
     this.stack = {};                        //Poiters declared as objects
 
     for (let h = 0; h < height; h++) {    //setting all pointers at 'null'
-      this.stack[h + 1] = null;
+      this.stack[h] = null;
     }
   }
 

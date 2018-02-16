@@ -2,8 +2,22 @@ import { SkipNode } from './skip-node';
 
 export class SkipList {
   constructor () {
-    this.head = new SkipNode(null);               //Generating head of SkipList
-    this.head.stack.length = 10;
+    this.head = new SkipNode(null, 10);               //Generating head of SkipList
+  }
+
+  toString () {
+    let string = ' ';
+    let node = this.head.stack[0];
+while(node.stack[0] !==null)
+{
+  string +=node.value+'('+node.height+')'+' ->';
+  node =node.stack[0];
+}
+    return string;
+  }
+
+  generateHeight () {
+    return Math.floor(Math.random() * (10+1) -1)+1 ;
   }
 
   find (node) {
@@ -32,37 +46,35 @@ export class SkipList {
   }
 
   add (node) {
-    let index = this.head.height;
-    let iterator;
+    let index = this.head.height - 1;
+    let iterator = this.head;
 
     if (!(node instanceof SkipNode)) {
-      node = new SkipNode(node);
+      node = new SkipNode(node, this.generateHeight());
     }
-
-                                   //Looking for node b4 insertion
-      while (this.head.stack[index] === null) {
+    while (index > 0 && iterator.stack[index] === null) {
+      index--;
+    }
+    while (iterator.stack[index] !== null && index > 0) {
+      if (iterator.stack[index].value < node.value) {
+        iterator = iterator.stack[index];
+      } else {
         index--;
       }
-
-      iterator = this.head;
-
-      while (iterator.stack[index] !== null && iterator.stack[index] < node &&
-      index > 0) {
-        if (iterator.stack[index].value !== node.value) {
-          iterator = iterator.stack[index];
-        } else {
-          index--;
-        }
-      }
-      for (let j = 0; j < node.height; j++) {
-        node.stack[j] = iterator.stack[j];
-      }
-      for (let k = 0; k < node.height; k++) {
-        iterator.stack[k] = node;
-      }
     }
+     // if (node.height > iterator.height) {
+     //   for (let i = iterator.height; i < node.height; i++) {
+     //     this.head.stack[i] = node.stack[i];
+     //   }
+     // }
 
-
+    for (let j = 0; j < node.height; j++) {
+      node.stack[j] = iterator.stack[j];
+    }
+    for (let k = 0; k < node.height; k++) {
+      iterator.stack[k] = node;
+    }
+  }
 
   remove (node) {
     if (!(node instanceof SkipNode)) {
