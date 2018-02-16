@@ -11,6 +11,6 @@ export class SkipNode {
   }
 
   get height () {
-    return Object.keys(this.stack).length;    //height getter
+    return Object.keys(this.stack).length;    //height getter :/
   }
 }

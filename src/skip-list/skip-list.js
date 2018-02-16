@@ -62,11 +62,11 @@ while(node.stack[0] !==null)
         index--;
       }
     }
-     // if (node.height > iterator.height) {
-     //   for (let i = iterator.height; i < node.height; i++) {
-     //     this.head.stack[i] = node.stack[i];
-     //   }
-     // }
+     if (node.height > iterator.height) {
+       for (let i = iterator.height; i < node.height; i++) {
+         this.head.stack[i] = node.stack[i];
+       }
+     }
 
     for (let j = 0; j < node.height; j++) {
       node.stack[j] = iterator.stack[j];

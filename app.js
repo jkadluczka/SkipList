@@ -1,5 +1,6 @@
 import { SkipNode, SkipList } from './src/skip-list';
 
+//generating test cases
 let node = new SkipNode(4, 5);
 let skipList = new SkipList();
 
