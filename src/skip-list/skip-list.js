@@ -48,6 +48,10 @@ export class SkipList {
       history[i].stack[i] = node;
     }
   }
+  find(value)
+  {
+
+  }
 
   remove (node) {
     let index = this.head.height - 1;     //Iterator for hopping on nodes
