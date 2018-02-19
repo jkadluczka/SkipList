@@ -5,104 +5,66 @@ export class SkipList {
     this.head = new SkipNode(null, 10);               //Generating head of SkipList
   }
 
+  toArray () {                                       //Generating string of nodes to print
+    let array = [];                                 //Creating empty node b'cuz if empty "undefined" printing always on beggining "might wanna fix that"
+    let node = this.head.stack[0];                    //Creating node iterator
+    while (node !== null) {
+      array.push(node.value + '('+ node.height + ')');
+      node = node.stack[0];
+    }
+    return array;
+  }
+
   toString () {
-    let string = ' ';
-    let node = this.head.stack[0];
-while(node.stack[0] !==null)
-{
-  string +=node.value+'('+node.height+')'+' ->';
-  node =node.stack[0];
-}
-    return string;
+    return this.toArray().join('->');
   }
 
   generateHeight () {
-    return Math.floor(Math.random() * (10+1) -1)+1 ;
+    return Math.floor(Math.random() * 10) + 1;
   }
 
-  find (node) {
-    let index = this.head.stack.length;
-    let iterator;
-
-    if (!(node instanceof SkipNode)) {
-      node = new SkipNode(node);
-    }
-
-    while (this.head.stack[index] === null) {
-      index--;
-    }
-
-    iterator = this.head.stack[index];
-
-    while (iterator.stack[index] !== null && iterator.stack[index] !== node) {
-      if (iterator.stack[index].value < node.value) {
-        iterator = iterator.stack[index];
-      } else {
-        index--;
-      }
-    }
-
-    return iterator.stack[index];
-  }
 
   add (node) {
-    let index = this.head.height - 1;
-    let iterator = this.head;
+    let index = this.head.height - 1;     //Iterator for hopping on nodes
+    let iterator = this.head;             //node starting whole operation
+    let history = [];
 
     if (!(node instanceof SkipNode)) {
-      node = new SkipNode(node, this.generateHeight());
+      node = new SkipNode(node, this.generateHeight());   //Generating new instance of node from "node: argument
     }
-    while (index > 0 && iterator.stack[index] === null) {
+    while (index >= 0) { //Loop for jumping down
+      while (iterator.stack[index] !== null &&
+      iterator.stack[index].value < node.value) {      //Loop for jumping right
+        iterator = iterator.stack[index];
+      }
+      history[index] = iterator;
       index--;
     }
-    while (iterator.stack[index] !== null && index > 0) {
-      if (iterator.stack[index].value < node.value) {
-        iterator = iterator.stack[index];
-      } else {
-        index--;
-      }
-    }
-     if (node.height > iterator.height) {
-       for (let i = iterator.height; i < node.height; i++) {
-         this.head.stack[i] = node.stack[i];
-       }
-     }
 
-    for (let j = 0; j < node.height; j++) {
-      node.stack[j] = iterator.stack[j];
+    for (let i = 0; i < node.height; i++) {
+      node.stack[i] = history[i].stack[i];
     }
-    for (let k = 0; k < node.height; k++) {
-      iterator.stack[k] = node;
+    for (let i = 0; i < node.height; i++) {
+      history[i].stack[i] = node;
     }
   }
 
   remove (node) {
-    if (!(node instanceof SkipNode)) {
-      node = new SkipNode(node);
+    let index = this.head.height - 1;     //Iterator for hopping on nodes
+    let iterator = this.head;             //node starting whole operation
+    let history = [];
+
+    while (index >= 0) { //Loop for jumping down
+      while (iterator.stack[index] !== null &&
+      iterator.stack[index].value < node.value) {      //Loop for jumping right
+        iterator = iterator.stack[index];
+      }
+      history[index] = iterator;
+      index--;
     }
-    if (this.head.stack[0] === null) {   //Case when list is empty
-      for (let i = 0; i < node.height; i++) {
-        this.head.stack[i] = node.stack[i];
-      }
-    } else {                                //Looking for node b4 insertion
-      while (this.head.stack[index] === null) {
-        index--;
-      }
 
-      iterator = this.head.stack[index];
-
-      while (iterator.stack[index] !== null && iterator.stack[index] < node &&
-      index > 0) {
-        if (iterator.stack[index].value !== node.value) {
-          iterator = iterator.stack[index];
-        } else {
-          index--;
-        }
-      }
-      for (let j = 0; j < node.height; j++) {
-        iterator.stack[j] = node.stack[j];
-
-      }
+    for (let i = 0; i < node.height; i++) {
+      history[i].stack[i] = node.stack[i];
     }
   }
 }
