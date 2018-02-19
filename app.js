@@ -1,21 +1,15 @@
-import { SkipNode, SkipList } from './src/skip-list';
+import {Bst,Node} from './src/bst';
 
-//generating test cases
-let node = new SkipNode(4, 5);
-let skipList = new SkipList();
+let noud = new Node(6)
+let bst = new Bst();
 
-skipList.add(1);
-skipList.add(2);
-skipList.add(3);
-skipList.add(4);
-skipList.add(5);
-skipList.add(6);
-skipList.add(7);
-skipList.add(8);
-skipList.add(9);
+bst.add(10);
+bst.add(5);
+bst.add(15);
+bst.add(12);
+bst.add(17);
+bst.add(13);
+bst.add(1);
+bst.add(noud);
 
-skipList.remove(7);
-
-console.log(skipList.toArray());
-console.log(skipList.toString());
-
+console.log(bst.find(noud));

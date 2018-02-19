@@ -50,22 +50,27 @@ export class SkipList {
   }
   find(value)
   {
-
-  }
-
-  remove (node) {
-    let index = this.head.height - 1;     //Iterator for hopping on nodes
-    let iterator = this.head;             //node starting whole operation
-    let history = [];
+let history = [];
+let iterator = this.head;
+let index = this.head.height -1;
 
     while (index >= 0) { //Loop for jumping down
       while (iterator.stack[index] !== null &&
-      iterator.stack[index].value < node.value) {      //Loop for jumping right
+      iterator.stack[index].value < value) {      //Loop for jumping right
         iterator = iterator.stack[index];
       }
       history[index] = iterator;
       index--;
     }
+
+    return [iterator, history];
+  }
+
+  remove (value) {
+
+    let findResults = this.find(value);
+    let node = findResults[0];
+    let history = findResults[1];
 
     for (let i = 0; i < node.height; i++) {
       history[i].stack[i] = node.stack[i];
