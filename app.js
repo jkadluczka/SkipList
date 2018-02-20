@@ -21,3 +21,8 @@ bst.add(90);
 
 console.log(bst._findSuccessor(noud));
 console.log(bst._findPredecessor(60));
+
+bst.remove(90);
+bst.remove(80);
+bst.remove(50);
+console.log("good");

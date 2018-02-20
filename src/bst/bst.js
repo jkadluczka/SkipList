@@ -86,14 +86,13 @@ export class Bst {
       while (iterator.leftChild !== leftChild) {
         leftChild = iterator;
         iterator = iterator.parent;
-        if(iterator === null) {
+        if (iterator === null) {
           break;
         }
       }
-      if(iterator === null)
-      {
-        return "No predecessor found"
-      }else {
+      if (iterator === null) {
+        return 'No predecessor found';
+      } else {
         return iterator;
       }
     }
@@ -113,17 +112,56 @@ export class Bst {
       while (iterator.rightChild !== rightChild) {
         rightChild = iterator;
         iterator = iterator.parent;
-        if(iterator === null) {
+        if (iterator === null) {
           break;
         }
       }
-      if(iterator === null)
-      {
-        return "No predecessor found"
-      }else {
+      if (iterator === null) {
+        return 'No predecessor found';
+      } else {
         return iterator;
       }
     }
+  }
+
+  remove (node) {
+    let iterator = this.find(node);
+    let successor = this._findSuccessor(iterator);
+
+    if (iterator.leftChild === null && iterator.leftChild === null) {
+      if (iterator.parent.leftChild === iterator) {
+        iterator = iterator.parent;
+        iterator.leftChild = null;
+      } else {
+        iterator = iterator.parent;
+        iterator.rightChild = null;
+      }
+    } else if ((!(iterator.leftChild === null) && iterator.rightChild ===
+        null) ||
+      (!(iterator.rightChild === null) && iterator.leftChild === null)) {
+      if (iterator.leftChild === null) {
+        if (iterator.parent.leftChild === iterator) {
+          iterator.parent.leftChild = iterator.rightChild;
+          iterator.rightChild.parent = iterator.parent;
+        } else {
+          iterator.parent.rightChild = iterator.rightChild;
+          iterator.rightChild.parent = iterator.parent;
+        }
+      } else {
+        if (iterator.parent.leftChild === iterator) {
+          iterator.parent.leftChild = iterator.leftChild;
+          iterator.leftChild.parent = iterator.parent;
+        } else {
+          iterator.parent.rightChild = iterator.leftChild;
+          iterator.leftChild.parent = iterator.parent;
+        }
+      }
+    } else {
+      iterator.value = successor.value;
+      successor = this.find(successor);
+      successor.parent = null;
+    }
+
   }
 
   toArray () {
