@@ -1,8 +1,8 @@
 import { Node } from './node';
 
-const COMPARATOR = (a, b) => a > b;
+const COMPARATOR = (a,b) => a>b;
 const DEFAULT_ARGS = {
-  comparator: COMPARATOR,
+  comparator : COMPARATOR
 };
 
 export class Bst {
@@ -22,7 +22,7 @@ export class Bst {
     } else {
 
       while (iterator !== null) {
-        if (this.compare(node.value, iterator.value)) {
+        if (this.compare(node.value,iterator.value)) {
           if (iterator.rightChild !== null) {
             iterator = iterator.rightChild;
           } else {
@@ -30,7 +30,7 @@ export class Bst {
             node.parent = iterator;
             break;
           }
-        } else if (this.compare(iterator.value, node.value)) {
+        } else if (this.compare(iterator.value,node.value)) {
           if (iterator.leftChild !== null) {
             iterator = iterator.leftChild;
           } else {
@@ -46,6 +46,7 @@ export class Bst {
 
   find (node) {
     let iterator = this.root;
+
 
     while (node === null) {
       if (iterator.value === node.value) {
@@ -71,28 +72,24 @@ export class Bst {
     return node;
   }
 
-  _findSuccessor (node) {
-    let iterator = this.find(node);
-    if (iterator.rightChild !== null) {
+  _findSuccessor(node){
+    let iterator = this.root;
 
-    } else {
-
+    if (!(node instanceof Node)) {
+      node = new Node(node);
     }
-  }
-
-  _findPredecessor (node) {
-    let iterator = this.find(node);
-  }
-
-  toArray () {
 
   }
-
-  toString () {
+  _findPredecessor(node){
 
   }
+  toArray(){
 
-  balance () {
+  }
+  toString(){
+
+  }
+  balance(){
 
   }
 }

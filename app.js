@@ -1,4 +1,4 @@
-import {Bst,Node} from './src/bst/index';
+import {Bst,Node} from './src/bst';
 
 let noud = new Node(6)
 let bst = new Bst();
