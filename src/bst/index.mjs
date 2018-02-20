@@ -1,2 +1,2 @@
 export {Node} from "./node"
-export {Bst} from "./bst"
+export {Bst}  from "./bst"
